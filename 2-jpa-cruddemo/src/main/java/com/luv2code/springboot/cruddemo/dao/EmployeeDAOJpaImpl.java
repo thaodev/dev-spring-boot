@@ -45,22 +45,29 @@ public class EmployeeDAOJpaImpl implements EmployeeDAO {
 
 	@Override
 	public void save(Employee theEmployee) {
-
-		entityManager.merge(theEmployee);
+		
+		//save or update the employee
+		Employee dbEmployee = entityManager.merge(theEmployee);
+		
+		//update with id from db .. so we can get the generated id for save/insert
+		theEmployee.setId(dbEmployee.getId());
 	}
 
 	@Override
 	public void deleteById(int theId) {
-
+		//method1:
 		// retrieve the Employee with given Id
-		Employee employee = entityManager.find(Employee.class, theId);
+		//Employee employee = entityManager.find(Employee.class, theId);
 
 		// remove that employee
-		if (employee == null) {
-			System.out.println("There is no employee retrived with given id");
-		} else {
-			entityManager.remove(employee);
-		}
+		//entityManager.remove(employee);
+		
+		//Method2:
+		Query theQuery = entityManager.createQuery("delete from Employee where id =: employeeId");
+		
+		theQuery.setParameter("employeeId", theId);
+		
+		theQuery.executeUpdate();
 
 	}
 
