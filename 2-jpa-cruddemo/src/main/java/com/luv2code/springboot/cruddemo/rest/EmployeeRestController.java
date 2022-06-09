@@ -71,11 +71,13 @@ public class EmployeeRestController {
 	@DeleteMapping("/employees/{theId}")
 	public String deleteEmployee(@PathVariable int theId) {
 		
-		Employee theDeleteEmployee = employeeService.findById(theId);
+		Employee toDeleteEmployee = employeeService.findById(theId);
 		
-		if (theDeleteEmployee == null) {
+		if (toDeleteEmployee == null) {
 			throw new RuntimeException("Employee is not found - " + theId);
 		}
+		
+		employeeService.deleteById(theId);
 		
 		return "The employee with id - " + theId + " was deleted";
 	}
