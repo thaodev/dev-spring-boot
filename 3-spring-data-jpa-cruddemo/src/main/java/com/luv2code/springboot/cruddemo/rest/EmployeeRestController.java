@@ -24,7 +24,7 @@ public class EmployeeRestController {
 	//quick and dirty: inject employee service
 	@Autowired
 	public EmployeeRestController(EmployeeService theEmployeeService) {
-		employeeService = theEmployeeService;
+		employeeService = theEmployeeService;	
 	}
 	
 	//expose "/employees" and return list of employees
