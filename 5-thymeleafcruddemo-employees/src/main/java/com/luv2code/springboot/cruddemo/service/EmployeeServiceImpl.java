@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.luv2code.springboot.cruddemo.dao.EmployeeRepository;
 import com.luv2code.springboot.cruddemo.entity.Employee;
 
+@Repository
 public class EmployeeServiceImpl implements EmployeeService {
 
 	private EmployeeRepository employeeRepository;
@@ -47,5 +49,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public void deleteById(int theId) {
 		employeeRepository.deleteById(theId);
 	}
+	
+	
 
 }
