@@ -5,10 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.luv2code.springboot.cruddemo.entity.Employee;
 import com.luv2code.springboot.cruddemo.entity.Salary;
@@ -62,12 +59,25 @@ public class EmployeeController {
 		return "employees/salary-structure-form";
 	}
 	
-	@GetMapping("/save")
+	@PostMapping("/save")
 	public String saveEmployee(@ModelAttribute("employee") Employee theEmployee) {
 		//save Employee
 		employeeService.saveEmployee(theEmployee);
 		
 		return "redirect:/employees/list";
+	}
+	
+	@GetMapping("/showFormForUpdate")
+	public String showFormForUpdate(@RequestParam("employeeId") int theId, Model theModel){
+		//retrieve the employee by given id per parameter from service
+		Employee theEmployee = employeeService.findEmployeeById(theId);
+
+		//set employee as a model attribute to pre-populate the form
+		theModel.addAttribute("employee", theEmployee);
+
+		//send over to our form
+		return "employees/employee-form";
+
 	}
 	
 }
