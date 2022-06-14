@@ -25,7 +25,9 @@
 						 th:object="${employee}" method="POST">
 
 <!--Add hidden form field to handle update otherwise it will add a new line each time updating the exiting employee-->
+<!--			This binds to the model attribute tells the app which employee to update-->
 			<input type="hidden" th:field="*{id}"/>
+
 
 			<input type="text" th:field="*{firstName}"
 					class="form-control mb-4 col-4" placeholder="First name">

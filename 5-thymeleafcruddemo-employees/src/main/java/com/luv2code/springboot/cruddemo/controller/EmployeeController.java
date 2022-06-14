@@ -67,7 +67,7 @@ public class EmployeeController {
 		return "redirect:/employees/list";
 	}
 	
-	@GetMapping("/showFormForUpdate")
+	@PostMapping("/showFormForUpdate")
 	public String showFormForUpdate(@RequestParam("employeeId") int theId, Model theModel){
 		//retrieve the employee by given id per parameter from service
 		Employee theEmployee = employeeService.findEmployeeById(theId);
@@ -78,6 +78,25 @@ public class EmployeeController {
 		//send over to our form
 		return "employees/employee-form";
 
+	}
+//this method use the @PathVariable instead of @RequestParam annotation but you can't use @PathVariable
+// in this scenario as user sent a param from the employee list form
+//	@GetMapping("/showFormForUpdate/{theId}")
+//	public String showFormForUpdate(@PathVariable int theId, Model theModel){
+//		//retrieve the employee by given id per parameter from service
+//		Employee theEmployee = employeeService.findEmployeeById(theId);
+//
+//		//set employee as a model attribute to pre-populate the form
+//		theModel.addAttribute("employee", theEmployee);
+//
+//		//send over to our form
+//		return "employees/employee-form";
+//	}
+
+	@GetMapping("/deleteEmployee")
+	public String deleteEmployee(@RequestParam("employeeId") int theId){
+		employeeService.deleteById(theId);
+		return "redirect:/employees/list";
 	}
 	
 }
